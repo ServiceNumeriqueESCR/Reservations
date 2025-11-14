@@ -15,7 +15,7 @@ services:
       - dokploy-network
 
   app:
-    image: librebooking/docker:master
+    image: librebooking/librebooking:4.0.0
     restart: always
     depends_on:
       - db
