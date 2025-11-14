@@ -36,6 +36,7 @@ services:
       # - ./data:/var/www/html/data
     networks:
       - dokploy-network
+      - publish 80:80
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.resa-escr.rule=Host(`reservation.escr.fr`)"
