@@ -5,7 +5,7 @@ services:
     image: linuxserver/mariadb:10.6.13
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${LB_DATABASE_PWD}
       - MYSQL_DATABASE=${LB_DATABASE_NAME}
       - MYSQL_USER=${LB_DATABASE_USER}
       - MYSQL_PASSWORD=${LB_DATABASE_PWD}
@@ -15,7 +15,7 @@ services:
       - dokploy-network
 
   app:
-    image: librebooking/librebooking:latest
+    image: librebooking/librebooking:master
     restart: always
     depends_on:
       - db
