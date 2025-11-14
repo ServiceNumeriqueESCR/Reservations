@@ -1,11 +1,12 @@
-version: "3.8"
-
 services:
   db:
     image: linuxserver/mariadb:10.6.13
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${LB_DATABASE_PWD}
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${LB_DATABASE_NAME}
       - MYSQL_USER=${LB_DATABASE_USER}
       - MYSQL_PASSWORD=${LB_DATABASE_PWD}
@@ -26,20 +27,21 @@ services:
       - LB_DATABASE_PWD=${LB_DATABASE_PWD}
       - LB_INSTALL_PWD=${LB_INSTALL_PWD}
       - LB_DEFAULT_TIMEZONE=Europe/Paris
-      - LB_APP_TITLE=Réservations Lycée
-      - LB_ADMIN_EMAIL=admin@tonlycee.fr
+      - LB_APP_TITLE=Réservations ESCR
+      - LB_ADMIN_EMAIL=${LB_ADMIN_EMAIL}
     volumes:
       - app_config:/config
-      - ./article.json:/var/www/html/article.json
-      - ./data:/var/www/html/data
+      # Si tu veux plus tard article.json + data :
+      # - ./article.json:/var/www/html/article.json
+      # - ./data:/var/www/html/data
     networks:
       - dokploy-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.librebooking.rule=Host(`resa.ton-domaine.fr`)"
-      - "traefik.http.routers.librebooking.entrypoints=websecure"
-      - "traefik.http.routers.librebooking.tls.certResolver=letsencrypt"
-      - "traefik.http.services.librebooking.loadbalancer.server.port=80"
+      - "traefik.http.routers.resa-escr.rule=Host(`reservation.escr.fr`)"
+      - "traefik.http.routers.resa-escr.entrypoints=websecure"
+      - "traefik.http.routers.resa-escr.tls.certResolver=letsencrypt"
+      - "traefik.http.services.resa-escr.loadbalancer.server.port=80"
 
 volumes:
   db_data:
