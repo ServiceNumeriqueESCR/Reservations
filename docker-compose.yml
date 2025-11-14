@@ -37,12 +37,6 @@ services:
       # - ./data:/var/www/html/data
     networks:
       - dokploy-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.resa-escr.rule=Host(`reservation.escr.fr`)"
-      - "traefik.http.routers.resa-escr.entrypoints=websecure"
-      - "traefik.http.routers.resa-escr.tls.certResolver=letsencrypt"
-      - "traefik.http.services.resa-escr.loadbalancer.server.port=80"
 
 volumes:
   db_data:
