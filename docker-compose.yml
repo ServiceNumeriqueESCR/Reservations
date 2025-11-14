@@ -6,10 +6,12 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Paris
+      - MYSQL_ROOT_PASSWORD=${LB_DATABASE_PWD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${LB_DATABASE_NAME}
       - MYSQL_USER=${LB_DATABASE_USER}
       - MYSQL_PASSWORD=${LB_DATABASE_PWD}
+    
     volumes:
       - db_data:/config
     networks:
